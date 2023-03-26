@@ -6,7 +6,7 @@ train_config = {
     "batch_size": 5,
     "max_seq_len": 4500, # length limitation
     "tau": 1000,
-    "output_dir": "./output_mimic_discnet",
+    "output_dir": "./output_mimic_discnet_",
     "log_filename": "train_log.txt",
     "heading2idx_path": data_dir + 'heading2idx.json',
     "word2idx_path": data_dir + 'word2idx.json',
@@ -320,5 +320,6 @@ if __name__ == '__main__':
         lines = [eval(i) for i in f.readlines()]
     score_lis = [i['valid']['valid_p@8'] + i['valid']['valid_p@15'] for i in lines]
     epoch = lines[np.argmax(score_lis)]['epoch']
+    print(epoch)
     trainer.load_model(path=f'{output_dir}/mimic.model.epoch.{epoch}', strict=True)
     trainer.test()
